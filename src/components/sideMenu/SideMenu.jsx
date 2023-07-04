@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import {withRouter} from 'react-router-dom';
 import './css/SideMenu.scss'
 
-import {MailOutlined, SettingOutlined ,UploadOutlined,UserOutlined,VideoCameraOutlined} from '@ant-design/icons';
+import {UserOutlined,} from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
+import SubMenu from 'antd/lib/menu/SubMenu';
 
 function getItem(label, key, children, type) {
   return {
@@ -13,7 +15,7 @@ function getItem(label, key, children, type) {
   };
 }
 
-function SideMenu() {
+function SideMenu (props){
   const menuList = [
     {
       key:"/home",
@@ -34,7 +36,7 @@ function SideMenu() {
     },
     {
       key:"/right-manage",
-      title:"Permission Control",
+      title:"Access Control",
       icon:<UserOutlined/>,
       children:[
         {
@@ -95,21 +97,44 @@ function SideMenu() {
 
     
   ];
+  const renderMenu = (menuList) =>{
+    return menuList.map(item => {
+      if(item.children){
+          return <SubMenu key={item.key} icon={item.icon} title={item.title}>
+              {renderMenu(item.children)}
+          </SubMenu>
+      }
+      return <Menu.Item key={item.key} icon={item.icon} 
+                onClick={()=> props.history.push(item.key)}
+              >{item.title}
+              
+              </Menu.Item>
+    })
+  }
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="logo">Global News Release Management System</div>
-      <Menu
+      <div className="logo">Permission Management System</div>
+      {/* <Menu
         theme='dark'
         defaultSelectedKeys={['1']}
         mode="inline"
         openKeys={openKeys}
         onOpenChange={onOpenChange}
         items={items}
-      />
+      /> */}
+      <Menu  
+        theme='dark'
+        defaultSelectedKeys={['3']}
+        mode="inline"
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        >
+        {renderMenu(menuList)}
+      </Menu>
     </Sider>
   )
 }
-
-export default SideMenu
+// HOC => props 
+export default withRouter(SideMenu)
 
 
