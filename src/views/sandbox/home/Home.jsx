@@ -1,6 +1,11 @@
+import { Button } from "antd";
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      
+      <Button type="primary">Button</Button>
+
+    </div>
   )
 }
 
