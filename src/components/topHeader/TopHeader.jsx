@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
-import './css/TopHeader.scss';
+import './css/TopHeader.css';
 
 import {MenuUnfoldOutlined,MenuFoldOutlined,UserOutlined} from '@ant-design/icons';
 import { Layout,Menu,Dropdown,Avatar } from 'antd';
@@ -56,11 +56,11 @@ function TopHeader() {
     >
       {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
         className: 'trigger',
-        onClick: () => setCollapsed(!collapsed),
+        onClick: () => setCollapsed(false),
       })}
       <div className="header-right-sec" >
         <span style={{paddingRight: '15px'}}>Welcome back, admin</span> 
-        <Dropdown overlay={menu}>
+        <Dropdown menu={menu}>
           <Avatar size="large" icon={<UserOutlined />} />
         </Dropdown>
       </div>
