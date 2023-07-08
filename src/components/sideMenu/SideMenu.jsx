@@ -120,17 +120,17 @@ function SideMenu (props){
   //   }
 
   // ]
-  const iconList = {
-    "/home":<UserOutlined/>,
-    "/user-manage":<UserOutlined/>,
-    "/user-manage/list":<UserOutlined/>,
-    "/right-manage":<UserOutlined/>,
-    "/right-manage/role/list":<UserOutlined/>,
-    "/right-manage/right/list":<UserOutlined/>,
-    "/news-manage":<UserOutlined/>,
-    "/news-manage/draft":<UserOutlined/>,
-    "/news-manage/category":<UserOutlined/>,
-  }
+  // const iconList = {
+  //   "/home":<UserOutlined/>,
+  //   "/user-manage":<UserOutlined/>,
+  //   "/user-manage/list":<UserOutlined/>,
+  //   "/right-manage":<UserOutlined/>,
+  //   "/right-manage/role/list":<UserOutlined/>,
+  //   "/right-manage/right/list":<UserOutlined/>,
+  //   "/news-manage":<UserOutlined/>,
+  //   "/news-manage/draft":<UserOutlined/>,
+  //   "/news-manage/category":<UserOutlined/>,
+  // }
   const {Sider} = Layout;
   const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
   const [collapsed,setCollapsed] = useState(false);
@@ -156,11 +156,11 @@ function SideMenu (props){
     return menuList.map(item => {
      // console.log(item)
       if(item.children?.length>0&&checkPermission(item)){
-          return <SubMenu key={item.key} icon={iconList[item.key]} title={item.title}>
+          return <SubMenu key={item.key} title={item.title}>
               {renderMenu(item.children)}
           </SubMenu>
-      }
-      return checkPermission(item)&&<Menu.Item key={item.key} icon={iconList[item.key]} 
+      } //  icon={iconList[item.key]}
+      return checkPermission(item)&&<Menu.Item key={item.key} 
                 onClick={()=> props.history.push(item.key)}
               >{item.title}
               
@@ -168,7 +168,8 @@ function SideMenu (props){
     })
   }
   const checkPermission=(item)=>{
-    return item.pagepermission !==1
+    //console.log("===> ",item)
+    return item?.pagepermisson ===1 || item?.pagepermisson ===0
   }
   return (
     <Sider trigger={null} collapsible collapsed={false}>
@@ -194,5 +195,3 @@ function SideMenu (props){
 }
 // HOC => props 
 export default withRouter(SideMenu)
-
-

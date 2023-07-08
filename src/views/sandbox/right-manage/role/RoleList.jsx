@@ -28,8 +28,10 @@ function RoleList() {
           title: "Modification",
           render: (item) => {
               return <div>
-                  <Button danger shape="circle" icon={<DeleteOutlined />} onClick={() => deletemMethod(item)} />
-                  <Button type="primary" shape="circle" icon={<MenuOutlined />} onClick={()=>{
+                  <Button danger shape="circle" icon={<DeleteOutlined />} 
+                   onClick={() => deletemMethod(item)} />
+                  <Button type="primary" shape="circle" icon={<MenuOutlined />} 
+                    onClick={()=>{
                       setisModalVisible(true)
                       setcurrentRights(item.rights)
                       setcurrentId(item.id)
@@ -43,23 +45,16 @@ function RoleList() {
       confirm({
           title: 'Are you sure to remove it?',
           icon: <ExclamationCircleOutlined />,
-          // content: 'Some descriptions',
           onOk() {
-              //   console.log('OK');
-              deleteMethod(item)
+            setdataSource(dataSource.filter(data => data.id !== item.id))
+            axios.delete(`/roles/${item.id}`)
           },
           onCancel() {
-              //   console.log('Cancel');
           },
       });
 
   }
-  //删除
-  const deleteMethod = (item) => {
-      // console.log(item)
-      setdataSource(dataSource.filter(data => data.id !== item.id))
-      axios.delete(`/roles/${item.id}`)
-  }
+
     useEffect(() => {
       axios.get("http://localhost:5000/roles").then(res => {
           setdataSource(res.data)
@@ -74,7 +69,7 @@ function RoleList() {
     },[])
 
     const handleOk = ()=>{
-      console.log(currentRights,currentId)
+      //console.log(currentRights,currentId)
       setisModalVisible(false)
       //同步datasource
       setdataSource(dataSource.map(item=>{
@@ -88,9 +83,9 @@ function RoleList() {
       }))
       //patch
 
-      // axios.patch(`/roles/${currentId}`,{
-      //     rights:currentRights
-      // })
+      axios.patch(`/roles/${currentId}`,{
+          rights:currentRights
+      })
   }
 
   const handleCancel  =()=>{
@@ -98,7 +93,6 @@ function RoleList() {
   }
 
   const onCheck = (checkKeys)=>{
-      // console.log(checkKeys)
       setcurrentRights(checkKeys.checked)
   }
   return (
@@ -106,7 +100,7 @@ function RoleList() {
           <Table dataSource={dataSource} columns={columns}
               rowKey={(item) => item.id} pagination={false}></Table>
 
-          <Modal title="权限分配" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+          <Modal title="Grant Access" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
           <Tree
               checkable
               checkedKeys = {currentRights}

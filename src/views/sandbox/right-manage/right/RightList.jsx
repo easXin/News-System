@@ -43,7 +43,6 @@ export default function RightList() {
             render: (item) => {
                 return <div>
                     <Button type='dashed' shape="circle" icon={<DeleteOutlined />} onClick={() => deleteMethod(item)} />
-                    {/* <Button type='primary' shape="circle" icon={<EditOutlined />}  onClick={() => editMethod(item)}/> */}
                     <Popover content={
                       <div style={{textAlign:"center"}}>
                         <Switch checked={item.pagepermisson} 
@@ -52,7 +51,7 @@ export default function RightList() {
                       title="Page Config" trigger={item.pagepermisson===undefined?'':'click'}
                     >
                       <Button type="primary" shape="circle" icon={<EditOutlined />}
-                          disabled={item.pagepermisson===undefined}  onClick={() => editMethod(item)}
+                          disabled={item.pagepermisson===undefined} 
                       />
                     </Popover>
                 </div>
@@ -81,34 +80,18 @@ export default function RightList() {
         confirm({
             title: 'Are you sure to remove it?',
             icon: <ExclamationCircleOutlined />,
-            // content: 'Some descriptions',
             onOk() {
-                //   console.log('OK');
                 deleteItem(item)
             },
             onCancel() {
-                //   console.log('Cancel');
             },
         });
 
     }
-    const editMethod = (item) => {
-      confirm({
-          title: 'Are you sure to make this change?',
-          icon: <ExclamationCircleOutlined />,
-          // content: 'Some descriptions',
-          onOk() {
-              //   console.log('OK');
-              updateItem(item)
-          },
-          onCancel() {
-              //   console.log('Cancel');
-          },
-      });
 
-  }
     //删除
     const deleteItem = (item) => {
+      // next level
       if (item.grade === 1) {
         setdataSource(dataSource.filter(data => data.id !== item.id))
       }else{
@@ -116,23 +99,6 @@ export default function RightList() {
         list[0].children = list[0].children.filter(data=>data.id!==item.id)
         setdataSource([...dataSource])
       }
-      
-      // console.log(item)
-        // 当前页面同步状态 + 后端同步
-        //setdataSource(dataSource.filter(data => data.id !== item.id))
-        // 层级 grade
-        // if (item.grade === 1) {
-        //     setdataSource(dataSource.filter(data => data.id !== item.id))
-        //     axios.delete(`http://localhost:5000/rights/${item.id}`)
-        // }else{
-        //     let list = dataSource.filter(data=>data.id===item.rightId)
-        //     list[0].children = list[0].children.filter(data=>data.id!==item.id)
-        //     setdataSource([...dataSource])
-        //     axios.delete(`http://localhost:5000/children/${item.id}`)
-        // }
-    }
-    const updateItem = (item) =>{
-      console.log("Update -->",item)
     }
 
     return (
