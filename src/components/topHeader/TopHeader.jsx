@@ -1,49 +1,37 @@
 import { useState } from 'react';
 import React from 'react';
 import './css/TopHeader.css';
-
+import {withRouter} from 'react-router-dom';
 import {MenuUnfoldOutlined,MenuFoldOutlined,UserOutlined} from '@ant-design/icons';
 import { Layout,Menu,Dropdown,Avatar } from 'antd';
 
 
-function TopHeader() {
+function TopHeader(props) {
   const { Header} = Layout;
   const [collapsed, setCollapsed] = useState(false);
+  const {role:{roleName},username} = JSON.parse(localStorage.getItem("token"))
   const menu = (
     <Menu
       items={[
         {
           key: '1',
           label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Setting
-            </a>
+            <div onClick={()=>{console.log("XXX")}}>Setting</div> 
+            // <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+            //   Setting
+            // </a>
           ),
         },
         {
           key: '2',
           label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              2nd menu item
-            </a>
+            <div  onClick={()=>{
+              console.log(props)
+              //localStorage.removeItem("token")
+              props.history.replace("/login")
+            }}>Log out</div>
           ),
-        },
-        {
-          key: '3',
-          label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Superuser
-            </a>
-          ),
-        },
-        {
-          key: '4',
-          label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Sign Out
-            </a>
-          ),
-        },
+        }
       ]}
     />
   ); 
@@ -54,18 +42,22 @@ function TopHeader() {
         padding: '0px 16px',
       }}
     >
-      {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+      {React.createElement(collapsed ? MenuFoldOutlined : MenuUnfoldOutlined, {
         className: 'trigger',
-        onClick: () => setCollapsed(false),
-      })}
-      <div className="header-right-sec" >
-        <span style={{paddingRight: '15px'}}>Welcome back, admin</span> 
-        <Dropdown menu={menu}>
-          <Avatar size="large" icon={<UserOutlined />} />
-        </Dropdown>
-      </div>
+        onClick: () =>{
+           setCollapsed(!collapsed)
+     }})}
+    
+        <div style={{ float: "right" }}>
+                {/* <span>欢迎<span style={{color:"#1890ff"}}>{username}</span>回来</span> */}
+                <span style={{paddingRight: '15px'}}>Welcome back, <span style={{color:"#1890ff"}}>{username}</span></span> 
+                <Dropdown overlay={menu}>
+                    <Avatar size="large" icon={<UserOutlined />} />
+                </Dropdown>
+            </div>
+      
   </Header>
   )
 }
 
-export default TopHeader;
+export default withRouter(TopHeader);

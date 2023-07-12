@@ -1,0 +1,76 @@
+/* .body1 {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .circle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 80%);
+    transform: rotate(-90deg);
+    animation: rotate 12s linear infinite;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(-90deg);
+    }
+    100% {
+      transform: rotate(270deg);
+    }
+  }
+  
+  ul li {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    transform: translate(-50%, -50%) rotate(calc(30deg * var(--i)));
+    font-size: 2.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-shadow: 0 0 15px #fff, 0 0 35px #fff, 0 0 75px #fff, 0 0 150px #fff;
+  }
+  
+  .body1::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(#08ff12, #0791ff);
+    z-index: 10;
+    mix-blend-mode: multiply;
+  }
+   */
+   .login-page{
+    background: #fff;
+    width:100%; 
+    height: 100vh;
+    overflow:'hidden'; 
+   }
+   .form-container{
+    background-color: rgba(0,0,0,0.3);
+    width: 500px;
+    height: 300px;
+    top:50%;
+    left:50%;
+    position: fixed;
+    transform: translate(-50%,-50%);
+    padding: 5%;
+    align-items: center;
+
+   }
+   
+   .form-container > .login-title{
+    text-align: center;
+    height:auto;
+    line-height: 40px;
+    font-size: 20px;
+    color:#fff;
+   } 

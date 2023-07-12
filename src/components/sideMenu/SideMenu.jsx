@@ -2,138 +2,16 @@ import { useEffect, useState } from 'react';
 import {withRouter} from 'react-router-dom';
 import './css/SideMenu.css'
 
-import {UserOutlined,} from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import axios from 'axios';
 
-function getItem(label, key, children, type) {
-  return {
-    key,
-    children,
-    label,
-    type,
-  };
-}
 
 function SideMenu (props){
-  // const menuList = [
-  //   {
-  //     key:"/home",
-  //     title:"HomePage",
-  //     icon:<UserOutlined/>
-  //   },
-  //   {
-  //     key:"/user-manage",
-  //     title:"User Control",
-  //     icon:<UserOutlined/>,
-  //     children:[
-  //       {
-  //         key:"/user-manage/list",
-  //         title:"User List",
-  //         icon:<UserOutlined/>,
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     key:"/right-manage",
-  //     title:"Access Control",
-  //     icon:<UserOutlined/>,
-  //     children:[
-  //       {
-  //         key:"/right-manage/role/list",
-  //         title:"Role List",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/right-manage/right/list",
-  //         title:"Permission List",
-  //         icon:<UserOutlined/>
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     key:"/news-manage2",
-  //     title:"News Control",
-  //     icon:<UserOutlined/>,
-  //     children:[
-  //       {
-  //         key:"/news-manage/create-news1",
-  //         title:"Role List",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/draft1",
-  //         title:"Draft",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/category1",
-  //         title:"Category",
-  //         icon:<UserOutlined/>
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     key:"/news-manage3",
-  //     title:"Audit Control",
-  //     icon:<UserOutlined/>,
-  //     children:[
-  //       {
-  //         key:"/news-manage/create-news2",
-  //         title:"Role List",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/draft2",
-  //         title:"Draft",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/category2",
-  //         title:"Category",
-  //         icon:<UserOutlined/>
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     key:"/news-manage",
-  //     title:"Publish Control",
-  //     icon:<UserOutlined/>,
-  //     children:[
-  //       {
-  //         key:"/news-manage/create-news",
-  //         title:"Role List",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/draft",
-  //         title:"Draft",
-  //         icon:<UserOutlined/>
-  //       },
-  //       {
-  //         key:"/news-manage/category",
-  //         title:"Category",
-  //         icon:<UserOutlined/>
-  //       }
-  //     ]
-  //   }
-
-  // ]
-  // const iconList = {
-  //   "/home":<UserOutlined/>,
-  //   "/user-manage":<UserOutlined/>,
-  //   "/user-manage/list":<UserOutlined/>,
-  //   "/right-manage":<UserOutlined/>,
-  //   "/right-manage/role/list":<UserOutlined/>,
-  //   "/right-manage/right/list":<UserOutlined/>,
-  //   "/news-manage":<UserOutlined/>,
-  //   "/news-manage/draft":<UserOutlined/>,
-  //   "/news-manage/category":<UserOutlined/>,
-  // }
   const {Sider} = Layout;
   const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
-  const [collapsed,setCollapsed] = useState(false);
+  //const [collapsed,setCollapsed] = useState(false);
+  const{role:{rights}} = JSON.parse(localStorage.getItem("token"))
   const [openKeys, setOpenKeys] = useState(['sub1']);
   const onOpenChange = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
@@ -143,7 +21,7 @@ function SideMenu (props){
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-  const selectKey = [props.location.pathname]
+  //const selectKey = [props.location.pathname]
   const[menu,setMenu] = useState([])
   useEffect(()=>{
     // _expand 
@@ -168,8 +46,7 @@ function SideMenu (props){
     })
   }
   const checkPermission=(item)=>{
-    //console.log("===> ",item)
-    return item?.pagepermisson ===1 || item?.pagepermisson ===0
+    return (item?.pagepermisson ===1 || item?.pagepermisson ===0) && rights.includes(item.key)
   }
   return (
     <Sider trigger={null} collapsible collapsed={false}>
