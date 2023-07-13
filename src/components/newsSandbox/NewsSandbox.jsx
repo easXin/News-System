@@ -13,10 +13,11 @@ import NewsSunset from '../../views/sandbox/publish-manage/NewsSunset';
 import NewsUnpublished from '../../views/sandbox/publish-manage/NewUnpublished';
 import RoleList from '../../views/sandbox/right-manage/RoleList';
 import AccessControlList from '../../views/sandbox/right-manage/RightList';
-import UserList from '../../views/sandbox/user-manage/UserList';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-function NewsSandbox() {
+import UserList from '../../views/sandbox/user-manage/UserList';
+
+function NewsSandbox(props) {
   const [BackendRouteList, setBackendRouteList] = useState([]);
   useEffect(()=>{
     Promise.all([
@@ -41,38 +42,36 @@ function NewsSandbox() {
     "/audit-manage/audit":AuditNews,
     "/publish-manage/unpublished":NewsUnpublished,
     "/publish-manage/published" :NewsPublished,
-    "/publish-manage/sunset":NewsSunset,
-    "*":NoPermission
+    "/publish-manage/sunset":NewsSunset
   }
-//   console.log(BackendRouteList)
-  const checkRoute = (item) =>{
-    return LocalRouterMap[item.key]&&item.pagemermission
+  const { role: { rights } } = JSON.parse(localStorage.getItem("token"))
+
+  const checkRoute = (item) => {
+      return LocalRouterMap[item.key] && (item.pagepermisson || item.routepermisson)
   }
-  const {role:{rights}} = JSON.parse(localStorage.getItem("token"))
-  const checkUserPermission = (item)=>{
-    return rights.includes(item.key)
+
+  const checkUserPermission = (item) => {
+      return rights.includes(item.key)
   }
   return (
     
     <Switch>
-       {
-           BackendRouteList.map(item =>
-            {
-              if(checkRoute(item)&&checkUserPermission()){
-                return <Route path={item.key} key={item.id} component={LocalRouterMap[item.key]} exact/>
+      {
+          BackendRouteList.map(item => {
+              if (checkRoute(item) && checkUserPermission(item)) {
+                  return <Route path={item.key} key={item.key}
+                  component={LocalRouterMap[item.key]} exact />
               }
               return null
-            }  
-        )}
+          })
+      }
 
-        <Redirect from="/" to="/home" exact/>
-        {
-          BackendRouteList.length>0&&
-           <Route path="*"component={NoPermission}/>
-        
-        }
-       
-    </Switch>
+      <Redirect from="/" to="/home" exact />
+      {
+          BackendRouteList.length > 0 && 
+          <Route path="*" component={NoPermission} />
+      }
+   </Switch>
   )
 }
 
