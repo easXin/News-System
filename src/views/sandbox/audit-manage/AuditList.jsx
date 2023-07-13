@@ -1,6 +1,6 @@
 function AuditList() {
     return (
-      <div>NewPublished</div>
+      <div>NewList</div>
     )
   }
   

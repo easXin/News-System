@@ -1,6 +1,6 @@
 function NewsUnpublished() {
     return (
-      <div>NewPublished</div>
+      <div>NewUnpublished</div>
     )
   }
   

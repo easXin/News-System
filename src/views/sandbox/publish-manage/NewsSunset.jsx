@@ -1,6 +1,6 @@
 function NewsSunset() {
     return (
-      <div>NewPublished</div>
+      <div>NewSunset</div>
     )
   }
   
