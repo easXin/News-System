@@ -2,7 +2,7 @@ import { useEffect, useState,useRef } from "react";
 import axios from 'axios'
 import { Button, Switch, Table,Modal} from "antd";
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import UserForm from "../../../components/user-manage/UserForm";
+import UserForm from "../../../components/sandbox/UserForm";
 import confirm from "antd/lib/modal/confirm";
 
 export default function UserList() {

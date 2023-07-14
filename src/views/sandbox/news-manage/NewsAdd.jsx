@@ -69,7 +69,7 @@ function NewsAdd(props) {
     <div>
       <PageHeader
         className="site-page-header"
-        onBack={() => null}
+        onBack={() => window.history.back()}
         title="Create News"
       />
       <Steps

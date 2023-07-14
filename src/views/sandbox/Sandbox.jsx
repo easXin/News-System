@@ -1,13 +1,13 @@
 
 import './css/Sandbox.css'
 
-import TopHeader from '../../components/topHeader/TopHeader';
-import SideMenu from '../../components/sideMenu/SideMenu';
+import TopHeader from '../../components/sandbox/TopHeader';
+import SideMenu from '../../components/sandbox/SideMenu';
 
 
 // antd 
 import {Layout} from 'antd'
-import NewsSandbox from '../../components/newsSandbox/NewsSandbox';
+import NewsSandbox from '../../components/sandbox/NewsSandbox';
 function Sandbox() {
   const{Content} = Layout;
   return (

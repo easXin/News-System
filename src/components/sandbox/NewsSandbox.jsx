@@ -18,6 +18,7 @@ import axios from 'axios';
 import UserList from '../../views/sandbox/user-manage/UserList';
 import 'nprogress/nprogress.css';
 import NProgress from 'nprogress';
+import NewsPreview from '../../views/sandbox/news-manage/NewsPreview';
 
 
 function NewsSandbox() {
@@ -44,6 +45,7 @@ function NewsSandbox() {
     "/news-manage/draft":NewsDraft,
     "/user-manage/delete": NewsDelete,
     "/news-manage/update":NewsUpdate,
+    "/news-manage/preview/:id":NewsPreview,
     "/news-manage/category":NewsCategory,
     "/audit-manage/list" :AuditList,
     "/audit-manage/audit":AuditNews,
@@ -67,18 +69,19 @@ function NewsSandbox() {
       {
           BackendRouteList.map(item => {
               if (checkRoute(item) && checkUserPermission(item)) {
-                  return <Route path={item.key} key={item.key}
-                  component={LocalRouterMap[item.key]} exact />
+                  return <Route path={item.key} key={item.key} component={LocalRouterMap[item.key]} exact />
               }
               return null
-          })
+          }
+              )
       }
 
       <Redirect from="/" to="/home" exact />
       {
-          BackendRouteList.length > 0 && 
-          <Route path="*" component={NoPermission} />
+          BackendRouteList.length > 0 && <Route path="*" component={NoPermission} />
       }
+
+    
    </Switch>
   )
 }
