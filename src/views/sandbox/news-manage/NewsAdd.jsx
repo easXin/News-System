@@ -33,11 +33,10 @@ function NewsAdd(props) {
   const prev = () => {
     setCurrent(current - 1);
 
-    console.log("pre ",current)
+    //console.log("pre ",current)
   };
   const User = JSON.parse(localStorage.getItem("token"))
   const handleSave = (auditState) =>{
-    //console.log("Hello")
     axios.post('/news',{
       ...formInfo,
       "content": content,
@@ -52,10 +51,10 @@ function NewsAdd(props) {
       //"publishTime":1617158496314
 
     }).then(res=>{
-      props.history.push(auditState===0?"/news-manager/draft":"/audit-manage/list")
+      props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
       notification.info({
         message: `Notification`,
-        description: `您可以到${auditState===0?'草稿箱':'审核列表'}中查看您的新闻`,
+        description:`You can check the news in the${auditState===0?'draft':'audit list'}`,
         placement:'bottomRight'
       });
     })
@@ -119,33 +118,19 @@ function NewsAdd(props) {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-                name="xxx"
-                label="categoryId"
-                rules={[{ required: true, message: 'Please input the title of collection!' }]}
+            <Form.Item
+                label="Category"
+                name="categoryId"
+                rules={[{ required: true, message: 'Please input your username!' }]}
             >
                 <Select>
                     {
                         categories.map(item =>
-                            <Option value={item.id} key={item.id} >{item.title}</Option>
+                            <Option value={item.id} key={item.id}>{item.title}</Option>
                         )
                     }
                 </Select>
-            </Form.Item> */}
-            
-            <Form.Item
-                            label="Category"
-                            name="categoryId"
-                            rules={[{ required: true, message: 'Please input your username!' }]}
-                        >
-                            <Select>
-                                {
-                                    categories.map(item =>
-                                        <Option value={item.id} key={item.id}>{item.title}</Option>
-                                    )
-                                }
-                            </Select>
-                        </Form.Item>
+            </Form.Item>
         </Form>
       </div>
       <div className={current===1?'':style.active}>

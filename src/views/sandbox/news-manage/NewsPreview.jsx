@@ -2,6 +2,7 @@ import { Descriptions, PageHeader } from "antd"
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import moment from "moment";
+import './css/NewsPreview.css'
 function NewsPreview(props) {
   const[dataSource,setdataSource]=useState(null)
 
@@ -11,41 +12,46 @@ function NewsPreview(props) {
             //console.log(res.data)
         })
   }, [props.match.params.id])
-  const auditList = ["未审核", '审核中', '已通过', '未通过']
-  const publishList = ["未发布", '待发布', '已上线', '已下线']
+  const auditList = ["Not Audited", 'Under Review', 'Approved', 'Not Approved']
+  const publishList = ["Not Published", 'Pending Publication', 'Online', 'Offline']
 
   return (
     <div>
         {dataSource && 
-            <div>
-                <PageHeader
-                    className="site-page-header"
-                    onBack={() => window.history.back()}
-                    title="Create News"
-                />
-                <Descriptions title="News Info" column={3} >
-                    <Descriptions.Item label="Creater">{dataSource.author}</Descriptions.Item>
-                    <Descriptions.Item label="Created Time">{moment(dataSource.createTime).format("YYYY/MM/DD HH:mm:ss")}</Descriptions.Item>
-                <Descriptions.Item label="Published Time">
-                        {
-                            dataSource.publishTime ? moment(dataSource.publishTime).format("YYYY/MM/DD HH:mm:ss") : "-"
-                        }
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Region">{dataSource.region}</Descriptions.Item>
-                    <Descriptions.Item label="Audit State">{auditList[dataSource.auditState]}</Descriptions.Item>
-                    <Descriptions.Item label="Published State">{publishList[dataSource.publishState]}</Descriptions.Item>
-                    <Descriptions.Item label="Views">{dataSource.view}</Descriptions.Item>
-                    <Descriptions.Item label="Likes">{dataSource.star}</Descriptions.Item>
-                    <Descriptions.Item label="Comments">0</Descriptions.Item>
-                </Descriptions>  
-                
-                <div dangerouslySetInnerHTML={{
-                        __html:dataSource.content
-                    }} style={{
-                        
-                        border:"1px solid gray"
-                    }}>
+            <div className="news-preview">
+                <div>
+                    <PageHeader
+                        className="site-page-header"
+                        onBack={() => window.history.back()}
+                        title="News Info"
+                      
+                    />
+                </div>
+                <div>
+                    <Descriptions  column={3} >
+                        <Descriptions.Item label="Creater">{dataSource.author}</Descriptions.Item>
+                        <Descriptions.Item label="Created Time">{moment(dataSource.createTime).format("YYYY/MM/DD HH:mm:ss")}</Descriptions.Item>
+                    <Descriptions.Item label="Published Time">
+                            {
+                                dataSource.publishTime ? moment(dataSource.publishTime).format("YYYY/MM/DD HH:mm:ss") : "-"
+                            }
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Region">{dataSource.region}</Descriptions.Item>
+                        <Descriptions.Item label="Audit State">{auditList[dataSource.auditState]}</Descriptions.Item>
+                        <Descriptions.Item label="Published State">{publishList[dataSource.publishState]}</Descriptions.Item>
+                        <Descriptions.Item label="Views">{dataSource.view}</Descriptions.Item>
+                        <Descriptions.Item label="Likes">{dataSource.star}</Descriptions.Item>
+                        <Descriptions.Item label="Comments">0</Descriptions.Item>
+                    </Descriptions>  
+                    
+                    <div dangerouslySetInnerHTML={{
+                            __html:dataSource.content
+                        }} style={{
+                            
+                            border:"1px solid gray"
+                        }}>
                     </div>
+                </div>
             </div>}
        
     </div>

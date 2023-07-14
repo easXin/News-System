@@ -44,7 +44,7 @@ function NewsSandbox() {
     "/news-manage/add": NewsAdd,
     "/news-manage/draft":NewsDraft,
     "/user-manage/delete": NewsDelete,
-    "/news-manage/update":NewsUpdate,
+    "/news-manage/update/:id":NewsUpdate,
     "/news-manage/preview/:id":NewsPreview,
     "/news-manage/category":NewsCategory,
     "/audit-manage/list" :AuditList,

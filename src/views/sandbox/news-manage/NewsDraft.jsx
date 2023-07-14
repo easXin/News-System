@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Table, Tag, Modal,Popover, Switch, notification} from 'antd'
+import { Button, Table, Modal,notification} from 'antd'
 import axios from 'axios'
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons'
 const { confirm } = Modal
@@ -65,9 +65,9 @@ function NewsDraft(props) {
           props.history.push('/audit-manage/list')
 
           notification.info({
-              message: `通知`,
+              message: `Notification`,
               description:
-                `您可以到${'审核列表'}中查看您的新闻`,
+                `You can view the news in ${'audit list'}`,
               placement:"bottomRight"
           });
       })
@@ -75,7 +75,7 @@ function NewsDraft(props) {
 
   const confirmMethod = (item) => {
       confirm({
-          title: '你确定要删除?',
+          title: 'Are you sure to remove it?',
           icon: <ExclamationCircleOutlined />,
           // content: 'Some descriptions',
           onOk() {
