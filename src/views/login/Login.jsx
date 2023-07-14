@@ -7,9 +7,9 @@ import axios from 'axios'
  function Login(props) {
     const onFinish = (values) => {
         // collecting data
-        console.log('Success:', values);
+        //console.log('Success:', values);
         //let{username,password} = values
-        axios.get(`http://localhost:5000/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(res=>{
+        axios.get(`/users?username=${values.username}&password=${values.password}&roleState=true&_expand=role`).then(res=>{
             //console.error(res.data)
             if(res.data.length===0){
                 message.error("Username or password doesn't match")

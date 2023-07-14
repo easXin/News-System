@@ -10,7 +10,8 @@ function IndexRouter() {
           <Route path="/login" component={Login}/>
           <Route path="/" 
                 render={ ()=> 
-                              localStorage.getItem("token")?<Sandbox/> : <Redirect to="/login"/>}
+                localStorage.getItem("token")?<Sandbox/> 
+                : <Redirect to="/login"/>}
           />   
         </Switch>
       </BrowserRouter>        

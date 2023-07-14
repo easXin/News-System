@@ -16,13 +16,20 @@ import AccessControlList from '../../views/sandbox/right-manage/RightList';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserList from '../../views/sandbox/user-manage/UserList';
+import 'nprogress/nprogress.css';
+import NProgress from 'nprogress';
 
-function NewsSandbox(props) {
+
+function NewsSandbox() {
+  NProgress.start()
+  useEffect(()=>{
+    NProgress.done()
+  })
   const [BackendRouteList, setBackendRouteList] = useState([]);
   useEffect(()=>{
     Promise.all([
-        axios.get("http://localhost:5000/rights"),
-        axios.get("http://localhost:5000/children"),
+        axios.get("/rights"),
+        axios.get("/children"),
     ]).then(res=>{
        setBackendRouteList([...res[0].data,...res[1].data])
       
@@ -47,6 +54,7 @@ function NewsSandbox(props) {
   const { role: { rights } } = JSON.parse(localStorage.getItem("token"))
 
   const checkRoute = (item) => {
+      //console.log(item)
       return LocalRouterMap[item.key] && (item.pagepermisson || item.routepermisson)
   }
 

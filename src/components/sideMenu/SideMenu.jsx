@@ -26,7 +26,7 @@ function SideMenu (props){
   useEffect(()=>{
     // _expand 
     // _embed  related data
-    axios.get("http://localhost:5000/rights?_embed=children")
+    axios.get("/rights?_embed=children")
     .then(res=>setMenu(res.data))
   },[])
 

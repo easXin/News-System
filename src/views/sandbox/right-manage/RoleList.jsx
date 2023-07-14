@@ -55,12 +55,12 @@ function RoleList() {
   }
 
     useEffect(() => {
-      axios.get("http://localhost:5000/roles").then(res => {
+      axios.get("/roles").then(res => {
           setdataSource(res.data)
       })
     }, [])
     useEffect(()=>{
-      axios.get("http://localhost:5000/rights?_embed=children").then(
+      axios.get("/rights?_embed=children").then(
         res=> {
           setRightList(res.data)
         }

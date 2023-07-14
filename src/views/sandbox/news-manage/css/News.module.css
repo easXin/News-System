@@ -1,0 +1,7 @@
+.active{
+    display: none;
+}
+.btn-box{
+    display: flex !important;
+    justify-content: space-between;
+}

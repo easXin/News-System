@@ -26,7 +26,7 @@ function TopHeader(props) {
           key: '2',
           label: (
             <div  onClick={()=>{
-              console.log(props)
+              //console.log(props)
               //localStorage.removeItem("token")
               props.history.replace("/login")
             }}>Log out</div>
