@@ -5,7 +5,7 @@ export default function AuditList(props) {
     const [dataSource, setdataSource] = useState([])
     const {username} = JSON.parse(localStorage.getItem("token"))
     useEffect(()=>{
-        axios(`/news?author=${username}&auditState_ne=0&publishState_lte=2&_expand=category`).then(res=>{
+        axios(`/news?author=${username}&auditState_ne=0&publishState_lte=1&_expand=category`).then(res=>{
             console.log(res.data)
             setdataSource(res.data)
         })
@@ -35,8 +35,8 @@ export default function AuditList(props) {
             title: "Audit State",
             dataIndex: 'auditState',
             render: (auditState) => {
-                const colorList = ["",'orange','green','red']
-                const auditList = ["Draft","Verifing","Pass","Failure"]
+                const colorList = ["black",'orange','green','red']
+                const auditList = ["Draft","Proceesing","Pass","Failure"]
                 return <Tag color={colorList[auditState]}>{auditList[auditState]}</Tag>
             }
         },
