@@ -5,7 +5,7 @@ export default function AuditList(props) {
     const [dataSource, setdataSource] = useState([])
     const {username} = JSON.parse(localStorage.getItem("token"))
     useEffect(()=>{
-        axios(`/news?author=${username}&auditState_ne=0&publishState_lte=1&_expand=category`).then(res=>{
+        axios(`/news?author=${username}&auditState_ne=0&publishState_lte=2&_expand=category`).then(res=>{
             console.log(res.data)
             setdataSource(res.data)
         })
@@ -65,9 +65,9 @@ export default function AuditList(props) {
             auditState:0
         }).then(res=>{
             notification.info({
-                message: `通知`,
+                message: `Notification`,
                 description:
-                  `您可以到草稿箱中查看您的新闻`,
+                  `You can go to draft to view your news`,
                 placement:"bottomRight"
             });
   
@@ -86,9 +86,9 @@ export default function AuditList(props) {
             props.history.push('/publish-manage/published')
 
             notification.info({
-                message: `通知`,
+                message: `Notification`,
                 description:
-                  `您可以到【发布管理/已经发布】中查看您的新闻`,
+                  `You can go to 'Publishing Management/Published' to view your news.`,
                 placement:"bottomRight"
             });
         })

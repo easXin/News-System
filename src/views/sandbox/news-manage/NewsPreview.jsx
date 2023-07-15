@@ -13,7 +13,7 @@ function NewsPreview(props) {
         })
   }, [props.match.params.id])
   const auditList = ["Not Audited", 'Under Review', 'Approved', 'Not Approved']
-  const publishList = ["Not Published", 'Pending Publication', 'Online', 'Offline']
+  const publishList = ["Not Published", 'Pending', 'Online', 'Offline']
 
   return (
     <div>

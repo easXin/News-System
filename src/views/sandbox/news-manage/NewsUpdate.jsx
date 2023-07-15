@@ -40,7 +40,7 @@ function NewsUpdate(props) {
     axios.post('/news',{
       ...formInfo,
       "content": content,
-      "region": User.region?User.region:"全球",
+      "region": User.region?User.region:"Global",
       "author": User.username,
       "roleId": User.roleId,
       "auditState": auditState,
@@ -155,7 +155,7 @@ function NewsUpdate(props) {
         }}></NewEditor>
       </div>
       <div className={current===2?'':style.active}>
-        2222
+
       </div>
       <div
         className="btn-box"
