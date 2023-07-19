@@ -31,7 +31,7 @@ function NewsPreview(props) {
                     <Descriptions  column={3} >
                         <Descriptions.Item label="Creater">{dataSource.author}</Descriptions.Item>
                         <Descriptions.Item label="Created Time">{moment(dataSource.createTime).format("YYYY/MM/DD HH:mm:ss")}</Descriptions.Item>
-                    <Descriptions.Item label="Published Time">
+                        <Descriptions.Item label="Published Time">
                             {
                                 dataSource.publishTime ? moment(dataSource.publishTime).format("YYYY/MM/DD HH:mm:ss") : "-"
                             }

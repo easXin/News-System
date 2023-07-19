@@ -5,13 +5,13 @@ import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, UploadOutlined
 const { confirm } = Modal
 
 function NewsDraft(props) {
-    const [dataSource, setdataSource] = useState([])
     const {username} = JSON.parse(localStorage.getItem("token"))
+    const [dataSource, setdataSource] = useState([])
     useEffect(() => {
         axios.get(`/news?author=${username}&auditState=0&_expand=category`)
         .then(res => {
             const list = res.data
-            console.log(list)
+            //console.log(list)
             setdataSource(list)
         })
     }, [username])
