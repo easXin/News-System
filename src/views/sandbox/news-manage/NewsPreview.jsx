@@ -46,10 +46,7 @@ function NewsPreview(props) {
                     
                     <div dangerouslySetInnerHTML={{
                             __html:dataSource.content
-                        }} style={{
-                            
-                            border:"1px solid gray"
-                        }}>
+                        }} >
                     </div>
                 </div>
             </div>}

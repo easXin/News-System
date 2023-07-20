@@ -3,7 +3,7 @@ import { Button, Table, Tag} from 'antd'
 
 
 function NewsPublish(props) {
-    console.log("-->",props.dataSource)
+    //console.log("-->",props.dataSource)
 
     const columns = [
         {

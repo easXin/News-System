@@ -6,6 +6,7 @@ import {Layout, Menu} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import axios from 'axios';
 import {connect} from 'react-redux'
+import { AuditOutlined, CompassOutlined, FileTextOutlined, HomeOutlined, RocketOutlined, UserOutlined } from '@ant-design/icons';
 
 
 function SideMenu (props){
@@ -30,17 +31,29 @@ function SideMenu (props){
     axios.get("/rights?_embed=children")
     .then(res=>setMenu(res.data))
   },[])
+ 
+  const iconList = {
+    "/home":<HomeOutlined/>,
+    "/user-manage":<UserOutlined />,
+    "/right-manage":<CompassOutlined />,
+    "/news-manage":<FileTextOutlined />,
+    "/audit-manage":<AuditOutlined />,
+    "/publish-manage": <RocketOutlined />
+  }
 
   const renderMenu = (menuList) =>{
     return menuList.map(item => {
      // console.log(item)
       if(item.children?.length>0&&checkPermission(item)){
-          return <SubMenu key={item.key} title={item.title}>
+          return <SubMenu key={item.key} title={item.title}
+          icon={iconList[item.key]}
+          >
               {renderMenu(item.children)}
           </SubMenu>
       } //  icon={iconList[item.key]}
       return checkPermission(item)&&<Menu.Item key={item.key} 
-                onClick={()=> props.history.push(item.key)}
+                onClick={()=> props.history.push(item.key)} 
+                icon={iconList[item.key]}
               >{item.title}
               
               </Menu.Item>
@@ -53,7 +66,9 @@ function SideMenu (props){
     <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
       <div style={{display:"flex",height:"100%",flexDirection:"column"
     }}>
-        <div className="logo">Permission Management System</div>
+        <div className="logo" onClick={()=>props.history.push("/home")}>
+          {props.isCollapsed?"PMS":"Permission Management System"}
+        </div>
         <div style={{flex:1,"overflow":"auto"}}>
           <Menu  
             theme='dark'
