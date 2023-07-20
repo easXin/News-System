@@ -18,10 +18,11 @@ import axios from 'axios';
 import UserList from '../../views/sandbox/user-manage/UserList';
 import 'nprogress/nprogress.css';
 import NProgress from 'nprogress';
+import {connect} from 'react-redux'
 import NewsPreview from '../../views/sandbox/news-manage/NewsPreview';
+import { Spin } from 'antd';
 
-
-function NewsSandbox() {
+function NewsSandbox(props) {
   NProgress.start()
   useEffect(()=>{
     NProgress.done()
@@ -64,7 +65,10 @@ function NewsSandbox() {
       return rights.includes(item.key)
   }
   return (
+  //  import { Space, Spin } from 'antd';
+
     
+  <Spin size="large" spinning={props.isLoading} >
     <Switch>
       {
           BackendRouteList.map(item => {
@@ -83,7 +87,13 @@ function NewsSandbox() {
 
     
    </Switch>
+   </Spin>
   )
 }
 
-export default NewsSandbox
+
+const mapStateToProps = ({LoadingReducer:{isLoading}})=>({
+  isLoading
+})
+
+export default connect(mapStateToProps)(NewsSandbox)

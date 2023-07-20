@@ -25,7 +25,7 @@ function usePublish(type){
             notification.info({
                 message: `Notification`,
                 description:
-                  `You can go to [publish management/published] to read the News`,
+                  `You can view the News at published section`,
                 placement:"bottomRight"
             });
         })
@@ -40,7 +40,7 @@ function usePublish(type){
             notification.info({
                 message: `Notification`,
                 description:
-                  `You can go to [publish management/offline] to read News`,
+                  `You can view the News at published && offline sections`,
                 placement:"bottomRight"
             });
         })

@@ -48,7 +48,7 @@ const UserForm = forwardRef((props,ref) => {
             }
         }
     }
-    console.log(props)
+    //console.log(props)
     return (
         <Form
             ref={ref}

@@ -60,7 +60,7 @@ export default function RightList() {
     ];
 
     const  switchMethod = (item)=>{
-      console.log(item)
+      //console.log(item)
         item.pagepermisson = item.pagepermisson===1?0:1
         // console.log(item)
         setdataSource([...dataSource])

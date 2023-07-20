@@ -5,6 +5,7 @@ import './css/SideMenu.css'
 import {Layout, Menu} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import axios from 'axios';
+import {connect} from 'react-redux'
 
 
 function SideMenu (props){
@@ -49,10 +50,8 @@ function SideMenu (props){
     return (item?.pagepermisson ===1 || item?.pagepermisson ===0) && rights.includes(item.key)
   }
   return (
-    <Sider trigger={null} collapsible collapsed={false}>
+    <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
       <div style={{display:"flex",height:"100%",flexDirection:"column"
-    
-    
     }}>
         <div className="logo">Permission Management System</div>
         <div style={{flex:1,"overflow":"auto"}}>
@@ -71,4 +70,7 @@ function SideMenu (props){
   )
 }
 // HOC => props 
-export default withRouter(SideMenu)
+const mapStateToProps = ({CollApsedReducer:{isCollapsed}})=>({
+  isCollapsed
+})
+export default connect(mapStateToProps)(withRouter(SideMenu))

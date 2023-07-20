@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import React from 'react';
 import './css/TopHeader.css';
 import {withRouter} from 'react-router-dom';
 import {MenuUnfoldOutlined,MenuFoldOutlined,UserOutlined} from '@ant-design/icons';
 import { Layout,Menu,Dropdown,Avatar } from 'antd';
-
+import {connect} from 'react-redux'
 
 function TopHeader(props) {
+  //console.log(props)
   const { Header} = Layout;
-  const [collapsed, setCollapsed] = useState(false);
   const {role:{roleName},username} = JSON.parse(localStorage.getItem("token"))
   const menu = (
     <Menu
@@ -17,17 +16,12 @@ function TopHeader(props) {
           key: '1',
           label: (
             <div onClick={()=>{console.log("XXX")}}>Setting</div> 
-            // <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-            //   Setting
-            // </a>
           ),
         },
         {
           key: '2',
           label: (
             <div  onClick={()=>{
-              //console.log(props)
-              //localStorage.removeItem("token")
               props.history.replace("/login")
             }}>Log out</div>
           ),
@@ -42,14 +36,14 @@ function TopHeader(props) {
         padding: '0px 16px',
       }}
     >
-      {React.createElement(collapsed ? MenuFoldOutlined : MenuUnfoldOutlined, {
+      {React.createElement(props.isCollapsed ? MenuFoldOutlined : MenuUnfoldOutlined, 
+      {
         className: 'trigger',
         onClick: () =>{
-           setCollapsed(!collapsed)
+          props.changeCollapsed()
      }})}
     
         <div style={{ float: "right" }}>
-                {/* <span>欢迎<span style={{color:"#1890ff"}}>{username}</span>回来</span> */}
                 <span style={{paddingRight: '15px'}}>Welcome back, <span style={{color:"#1890ff"}}>{username}</span></span> 
                 <Dropdown overlay={menu}>
                     <Avatar size="large" icon={<UserOutlined />} />
@@ -59,5 +53,22 @@ function TopHeader(props) {
   </Header>
   )
 }
+// mapping state to prop    mapping dispatch to props  state
+const mapStateToProps = ({CollApsedReducer:{isCollapsed}})=>{
+  // console.log(state)
+  return {
+      isCollapsed
+  }
+}
+// give topheader isCollapsed property
+// access these value with props
 
-export default withRouter(TopHeader);
+const mapDispatchToProps = {
+  changeCollapsed(){
+      return {
+          type: "change_collapsed"
+          // payload:
+      }//action 
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(TopHeader));
